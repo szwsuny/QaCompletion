@@ -11,9 +11,8 @@ namespace SzwSuny\QA\Completion;
 
 class TrieTree
 {
-    public function getTree(array $words):array
+    public function getTree(array $words,array $tree = []):array
     {
-        $tree = [];
         foreach($words as $wd)
         {
             $word = $wd['word'];

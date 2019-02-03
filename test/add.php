@@ -16,6 +16,6 @@ $qaCompletion = new QaCompletion();
 $words = ['孙志伟','孙二维','孙志同','欧米茄'];
 
 $qaCompletion->adds($words);
+$qaCompletion->add('孙大为',1);
 
-
-$qaCompletion->save();
+$qaCompletion->upSort('孙志伟',10);

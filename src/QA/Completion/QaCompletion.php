@@ -21,11 +21,11 @@ class QaCompletion
      * @param $words 词
      * @param $sort 排序用，数字越大越靠前
      *
-     * @return 
+     * @return bool
      */
-    public function add(string $word,int $sort = 0)
+    public function add(string $word,int $sort = 1):bool
     {
-        $this->words[] = ['word'=>$word,'sort'=>$sort];
+        return $this->save([['word'=>$word,'sort'=>$sort]]);
     }
 
     /**
@@ -33,14 +33,61 @@ class QaCompletion
      *
      * @param $words 格式为 [['词汇1',1],['词汇2','2'],['词汇3','2']...] 词汇 为添加的联想词，数字为排序，越大越靠前。
      *
-     * @return 
+     * @return bool
      */
-    public function adds(array $words)
+    public function adds(array $words):bool
     {
+        $addWords = [];
+
         foreach($words as $word)
         {
-           $this->add($word); 
+            if(!is_array($word))
+            {
+                $addWords[] = ['word'=>$word,'sort'=>0];
+            } else 
+            {
+                $addWords[] = ['word'=>$word[0],'sort'=>$word[1]];
+            }
         }
+
+        return $this->save($addWords);
+    }
+
+    /**
+        * @brief 更新某个词的排序
+        *
+        * @param $word 要更新的词
+        * @param $sort 排序
+        *
+        * @return bool
+     */
+    public function upSort(string $word,$sort):bool
+    {
+        if($this->isExists($word)) {
+            return $this->add($word,$sort); //没错就是用的add
+        }
+
+        return false;
+    }
+
+
+    /**
+        * @brief 判断某个词是否存在
+        *
+        * @param $word 词
+        *
+        * @return bool
+     */
+    public function isExists(string $word):bool
+    {
+        $query = $this->query($word);
+
+        if(count($query) != 1)
+        {
+            return false;
+        }
+
+        return $query[0] === $word;
     }
 
     /**
@@ -48,10 +95,12 @@ class QaCompletion
      *
      * @return bool
      */
-    public function save():bool
+    protected function save(array $words):bool
     {
+        $tree = $this->getTree();
+
         $trieTree = new TrieTree();
-        $tree = $trieTree->getTree($this->words);
+        $tree = $trieTree->getTree($words,$tree);
         $filePath = $this->getFilePath();
         $write = serialize($tree);
 
@@ -73,11 +122,6 @@ class QaCompletion
         if(empty($word))
         {
             return [];
-        }
-        
-        if(preg_match_all("/[\x{4e00}-\x{9fa5}a-zA-Z0-9]+/u", $word, $newWord))
-        {
-            $word = $newWord[0][0];
         }
 
         $trieTree = new TrieTree();
