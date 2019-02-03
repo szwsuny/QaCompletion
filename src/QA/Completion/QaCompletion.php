@@ -80,14 +80,8 @@ class QaCompletion
      */
     public function isExists(string $word):bool
     {
-        $query = $this->query($word);
-
-        if(count($query) != 1)
-        {
-            return false;
-        }
-
-        return $query[0] === $word;
+        $trieTree = new TrieTree();
+        return $trieTree->exists($word,$this->getTree());
     }
 
     /**
@@ -120,16 +114,23 @@ class QaCompletion
      *
      * @param $word
      *
-     * @return 
+     * @return bool
      */
     public function remove(string $word):bool
     {
+        if(!$this->isExists($word))
+        {
+            return false;
+        }
+
         $tree = $this->getTree();
 
         $trieTree = new TrieTree();
         $tree = $trieTree->remove($word,$tree);
 
-        return $this->setTree($tree);
+        var_dump($tree);
+        return false;
+        // return $this->setTree($tree);
     }
 
     /**

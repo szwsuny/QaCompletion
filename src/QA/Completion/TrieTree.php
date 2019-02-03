@@ -48,6 +48,79 @@ class TrieTree
         return $tree;
     }
 
+    public function remove(string $word,array $tree):array
+    {
+        $nodes = [];
+        $len = mb_strlen($word);
+        $isEnd = false;
+        $nowTree = $tree;
+        //第一次寻找并将节点存到 nodes数组中，isEnd表示十分完结，如果为false表示没找到词。那么就不改变
+        for($i = 0; $i < $len; $i++)
+        {
+            $char = mb_substr($word,$i,1);
+            if(!isset($nowTree[$char]))
+            {
+                break;
+            }
+
+            $isEnd = $nowTree[$char]['end']; //正常结束的应该为 true；
+            $nowTree = $nowTree[$char];
+            $nodes[$char] = $nowTree;
+        }
+
+        if($isEnd) //表示词已经找到了
+        {
+            $oTree = &$tree;
+            $isEnd = false;
+            for($i = 0; $i < $len; $i++)
+            {
+                $char = mb_substr($word,$i,1);
+                $nowTree = $nodes[$char]; //节点中去掉end sort 判断是否有其他词使用此点
+                unset($nowTree['end']);
+                unset($nowTree['sort']);
+                if(empty($nowTree)) //如果没有词用直接删除，退出循环
+                {
+                    unset($oTree[$char]);
+                    break;
+
+                }
+               
+                if(($i == $len -1) && !empty($nowTree)) //如果有其他节点在用。那么久将end的true 转为 false；
+                {
+                   $oTree[$char]['end'] = false; 
+                   break;
+                }
+
+                $oTree = &$oTree[$char];
+            }
+        }
+
+        return $tree;
+    }
+
+    public function exists(string $word,array $tree):bool
+    {
+        $len = mb_strlen($word);
+        $isEnd = false;
+
+        $nowTree = $tree;
+        for($i = 0; $i < $len; $i++)
+        {
+            $char = mb_substr($word,$i,1);
+            if(!isset($nowTree[$char]))
+            {
+                $isEnd = false;
+                break;
+            }
+
+            $isEnd = $nowTree[$char]['end'];
+
+            $nowTree = $nowTree[$char];
+        }
+
+        return $isEnd;
+    }
+
     public function query(string $word,array $tree,int $limit = 0):array
     {
         $len = mb_strlen($word);

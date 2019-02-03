@@ -1,10 +1,10 @@
 <?php
 /**
-* @file add.php
-* @brief 添加测试
+* @file remove.php
+* @brief 删除某个词
 * @author sunzhiwei
 * @version 1.1
-* @date 2019-02-02
+* @date 2019-02-03
  */
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -12,9 +12,6 @@ require __DIR__ . '/../vendor/autoload.php';
 use SzwSuny\QA\Completion\QaCompletion;
 
 $qaCompletion = new QaCompletion();
+$result = $qaCompletion->remove('孙志伟');
 
-$words = ['孙志伟','孙志','孙志问'];
-
-$qaCompletion->adds($words);
-
-$qaCompletion->upSort('孙志伟',10);
+var_dump($result);

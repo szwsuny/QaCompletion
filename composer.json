@@ -2,7 +2,7 @@
     "name":             "szwsuny/QaCompletion",
     "description":      "Query Auto Completion",
     "keywords":         ["qac", "trie", "php"],
-    "time":             "2019-2-2",
+    "time":             "2019-2-3",
     "license":          "MIT",
     "version":          "1.1.0",
     "role":             "Engineer",
