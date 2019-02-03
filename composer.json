@@ -1,5 +1,5 @@
 {
-    "name":             "szwsuny/QaCompletion",
+    "name":             "szwsuny/qacompletion",
     "description":      "Query Auto Completion",
     "keywords":         ["qac", "trie", "php"],
     "time":             "2019-2-3",
