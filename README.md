@@ -26,8 +26,8 @@ Query Auto Completion
 
 添加词
 
-    $qaCompletion->adds($words); //$words是数组 格式为 [['词汇',2],['词汇1',2]] 数组为排序使用，越大越靠前 
-    $qaCompletion->add($word,10); //$word是词汇  10 是排序值 你可以给任何数组，越大值此词在结果中越靠前
+    $qaCompletion->adds($words); //$words是数组 格式为 [['词汇',2],['词汇1',2]] 数字为排序使用，越大越靠前 
+    $qaCompletion->add($word,10); //$word是词汇  10 是排序值 你可以给任何数，越大值此词在结果中越靠前
 
 更新排序值
 
