@@ -89,12 +89,21 @@ class TrieTree
 
     private function trieForeach(string $prefix,array $nowTree):array
     {
+        $result = [];
+
         if($nowTree['end'])
         {
-            return [$prefix=>$nowTree['sort']];
+            $result[$prefix] = $nowTree['sort'];
         }
 
-        $result = [];
+        unset($nowTree['end']);
+        unset($nowTree['sort']);
+
+        if(empty($nowTree))
+        {
+            return $result;
+        }
+        
         foreach($nowTree as $char=>$tree)
         {
             if(!is_array($tree))
