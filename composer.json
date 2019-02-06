@@ -4,7 +4,7 @@
     "keywords":         ["qac", "trie", "php"],
     "time":             "2019-2-3",
     "license":          "MIT",
-    "version":          "1.1.0",
+    "version":          "1.1.3",
     "role":             "Engineer",
     "authors": [{
         "name":         "sunzhiwei",
