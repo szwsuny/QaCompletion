@@ -16,4 +16,9 @@ class Config
      */
     const TRIE_SUFFIX = 'trie';
 
+
+    /**
+     * @brief 吸收模式 开启后会跳过匹配不到字符
+     */
+    const ABSORB_MODE = true;
 }

@@ -9,6 +9,8 @@
 
 namespace SzwSuny\QA\Completion;
 
+use SzwSuny\QA\Completion\Config;
+
 class TrieTree
 {
     public function getTree(array $words,array $tree = []):array
@@ -130,9 +132,10 @@ class TrieTree
         for($i = 0; $i < $len; $i++)
         {
             $char = mb_substr($word,$i,1);
-            $prefix = $prefix . $char;
+
             if(isset($nowTree[$char]))
             {
+                $prefix = $prefix . $char;
                 $nowTree = $nowTree[$char];
                 if($i == ($len - 1))
                 {
@@ -140,7 +143,7 @@ class TrieTree
                 }
             }
             else {
-                $isFind = false;
+                $isFind = Config::ABSORB_MODE; //开启吸收模式
             }
         }
 

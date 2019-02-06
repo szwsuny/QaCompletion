@@ -14,7 +14,7 @@ use SzwSuny\QA\Completion\QaCompletion;
 $start = getMillisecond();
 
 $qaCompletion = new QaCompletion();
-$result = $qaCompletion->query('孙');
+$result = $qaCompletion->query(',sdaf孙志大伟');
 
 $end = getMillisecond();
 var_dump($result);
