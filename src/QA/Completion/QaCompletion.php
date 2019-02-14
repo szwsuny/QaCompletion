@@ -128,9 +128,7 @@ class QaCompletion
         $trieTree = new TrieTree();
         $tree = $trieTree->remove($word,$tree);
 
-        var_dump($tree);
-        return false;
-        // return $this->setTree($tree);
+        return $this->setTree($tree);
     }
 
     /**
